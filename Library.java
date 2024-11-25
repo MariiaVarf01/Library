@@ -74,7 +74,7 @@ public class Library {
                     scanner.close();
                     return;
                 default:
-                    System.out.println("Invalid choice! Please choose a valid option.");
+                    System.out.println("Invalid input! Please enter a number between 1 and 5.");
             }
         }
     }
@@ -82,11 +82,11 @@ public class Library {
     // Getting value from user
     private static String getValue (String msg, String errorMsg, Scanner scanner) {
         System.out.print(msg);
-        String value = scanner.nextLine();
+        String value = scanner.nextLine().trim();
         // Until user doesn't insert at least 1 character she/he will be asked to enter value
         while (value.isEmpty()){
             System.out.println(errorMsg);
-            value = scanner.nextLine();
+            value = scanner.nextLine().trim();
         }
 
         return value;
@@ -115,6 +115,9 @@ public class Library {
             // Verified user's quantity input
             try {
                 quantity = Integer.parseInt(scanner.nextLine());
+                if (quantity == 0) {
+                    System.out.println("Invalid quantity! Please number greater than 0");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid quantity! Please enter a valid number.");
             }
@@ -158,7 +161,7 @@ public class Library {
                 //  If inserted number is less than actual quantity, than this number removed from stocks
                 if (book.quantity >= quantity) {
                     book.quantity -= quantity;
-                    System.out.println("You have successfully borrowed " + quantity + " copy/copies of \"" + title + "\".");
+                    System.out.println("You have successfully borrowed " + quantity + " of \"" + title + "\".");
                     break;
                 }
                 // if the number of borrowed books is more than present, the loop will iterate
@@ -181,7 +184,7 @@ public class Library {
         if (library.containsKey(title + author)) {
             Book book = library.get(title + author);
             book.quantity += quantity;
-            System.out.println("You have successfully returned " + quantity + " copy/copies of \"" + title + "\".");
+            System.out.println("You have successfully returned " + quantity + " of \"" + title + "\".");
         } else {
             System.out.println("This book does not belong to the library.");
         }
